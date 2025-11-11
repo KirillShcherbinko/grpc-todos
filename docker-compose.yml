@@ -1,0 +1,28 @@
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: grpc_server
+    ports:
+      - "50051:50051"
+    networks:
+      - grpc-network
+    environment:
+      NODE_ENV: development
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: grpc_client
+    ports:
+      - "3000:3000"
+    networks:
+      - grpc-network
+    environment:
+      NODE_ENV: development
+
+networks:
+  grpc-network:
+    driver: bridge
