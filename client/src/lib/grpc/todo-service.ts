@@ -1,45 +1,43 @@
 import { TTodo, TTodoId, TTodoList } from "@/types";
 import { todoClient } from "./client";
-import Error from "next/error";
-import { NextResponse } from "next/server";
 import { ServiceError } from "@grpc/grpc-js";
 
 export const todoService = {
-  CreateTodo: (data: TTodo) =>
+  CreateTodo: (data: TTodo): Promise<TTodo> =>
     new Promise((resolve, reject) => {
-      todoClient.CreateTodo(data, (err: ServiceError, res: TTodo) => {
+      todoClient.CreateTodo(data, (err: ServiceError | null, res: TTodo) => {
         if (err) reject(err);
         else resolve(res);
       });
     }),
 
-  GetTodo: (id: TTodoId) =>
+  GetTodo: (id: TTodoId): Promise<TTodo> =>
     new Promise((resolve, reject) => {
-      todoClient.GetTodo(id, (err: ServiceError, res: TTodo) => {
+      todoClient.GetTodo(id, (err: ServiceError | null, res: TTodo) => {
         if (err) reject(err);
         else resolve(res);
       });
     }),
 
-  ListTodos: () =>
+  ListTodos: (): Promise<TTodoList> =>
     new Promise((resolve, reject) => {
-      todoClient.ListTodos({}, (err: ServiceError, res: TTodoList) => {
-        if (err) reject(err);
-        else resolve(res.todos);
-      });
-    }),
-
-  UpdateTodo: (data: TTodo) =>
-    new Promise((resolve, reject) => {
-      todoClient.UpdateTodo(data, (err: ServiceError, res: TTodo) => {
+      todoClient.ListTodos({}, (err: ServiceError | null, res: TTodoList) => {
         if (err) reject(err);
         else resolve(res);
       });
     }),
 
-  DeleteTodo: (id: TTodoId) =>
+  UpdateTodo: (data: TTodo): Promise<TTodo> =>
     new Promise((resolve, reject) => {
-      todoClient.DeleteTodo(id, (err: ServiceError) => {
+      todoClient.UpdateTodo(data, (err: ServiceError | null, res: TTodo) => {
+        if (err) reject(err);
+        else resolve(res);
+      });
+    }),
+
+  DeleteTodo: (id: TTodoId): Promise<{}> =>
+    new Promise((resolve, reject) => {
+      todoClient.DeleteTodo(id, (err: ServiceError | null) => {
         if (err) reject(err);
         else resolve({});
       });

@@ -1,4 +1,4 @@
-"use-client";
+"use client";
 
 import { EStatus } from "@/types";
 import { Badge, Card, Divider, Group, Stack, Text, Title } from "@mantine/core";
@@ -20,7 +20,7 @@ export const TodoCard = ({
   actionSlots,
 }: TTodoCardProps) => {
   return (
-    <Card maw={320} w="100%" padding={16}>
+    <Card maw={320} w="100%" padding={16} bg="#F5F5F5" radius="md">
       <Stack w="100%" gap="md">
         <Group justify="between" w="100%">
           <Title order={4}>{title}</Title>
@@ -30,7 +30,7 @@ export const TodoCard = ({
           {description}
         </Text>
         <Divider />
-        <Badge color={STATUS_COLORS[status]}>{STATUS_TITLES[status]}</Badge>
+        <Badge color={STATUS_COLORS[status as EStatus]}>{STATUS_TITLES[status as EStatus]}</Badge>
       </Stack>
     </Card>
   );

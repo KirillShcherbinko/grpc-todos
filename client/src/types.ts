@@ -9,7 +9,7 @@ export enum EStatus {
 export type TTodo = {
   id: number;
   title: string;
-  description: string;
+  description?: string;
   status: EStatus;
 };
 

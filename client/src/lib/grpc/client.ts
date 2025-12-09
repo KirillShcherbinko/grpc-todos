@@ -1,7 +1,7 @@
 import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
 
-const packageDef = protoLoader.loadSync("src/proto/todo.proto", {
+const packageDef = protoLoader.loadSync("../proto/todo.proto", {
   keepCase: true,
   longs: String,
   enums: String,

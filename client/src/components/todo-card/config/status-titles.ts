@@ -1,7 +1,5 @@
-import { EStatus } from "@/types";
-
-export const STATUS_TITLES: Record<EStatus, string> = {
-  0: "To do",
-  1: "In progress",
-  2: "Done",
+export const STATUS_TITLES: Record<string, string> = {
+  TO_DO: "To do",
+  IN_PROGRESS: "In progress",
+  DONE: "Done",
 };

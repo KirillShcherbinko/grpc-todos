@@ -1,6 +1,12 @@
 import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
-import type { ITodoProto, TTodo, TTodoId, TTodoList } from "./types";
+import {
+  EStatus,
+  type ITodoProto,
+  type TTodo,
+  type TTodoId,
+  type TTodoList,
+} from "./types";
 
 const packageDefinition = protoLoader.loadSync("../proto/todo.proto", {
   keepCase: true,
@@ -9,15 +15,45 @@ const packageDefinition = protoLoader.loadSync("../proto/todo.proto", {
   defaults: true,
   oneofs: true,
 });
-const proto = grpc.loadPackageDefinition(packageDefinition)
-  .todo as unknown as ITodoProto;
+
+const proto: any = grpc.loadPackageDefinition(packageDefinition).todo;
 
 const todos: TTodo[] = [
   {
     id: 1,
-    title: "Первая todo",
-    description: "Надо срочно сделать",
-    status: 0,
+    title: "Сделать домашнее задание",
+    description: "Математика и физика",
+    status: EStatus.TO_DO,
+  },
+  {
+    id: 2,
+    title: "Купить продукты",
+    description: "Молоко, хлеб, яйца",
+    status: EStatus.IN_PROGRESS,
+  },
+  {
+    id: 3,
+    title: "Написать пост в блог",
+    description: "",
+    status: EStatus.DONE,
+  },
+  {
+    id: 4,
+    title: "Прочитать книгу",
+    description: "«Чистый код» Роберт Мартин",
+    status: EStatus.TO_DO,
+  },
+  {
+    id: 5,
+    title: "Убрать квартиру",
+    description: "Пропылесосить и вытереть пыль",
+    status: EStatus.DONE,
+  },
+  {
+    id: 6,
+    title: "Позвонить другу",
+    description: "Обсудить планы на выходные",
+    status: EStatus.TO_DO,
   },
 ];
 
@@ -87,7 +123,7 @@ const todoServiceImpl = {
 };
 
 const server = new grpc.Server();
-server.addService(proto.TodoService, todoServiceImpl);
+server.addService(proto.TodoService.service, todoServiceImpl);
 
 const PORT = `0.0.0.0:${process.env.PORT}`;
 server.bindAsync(PORT, grpc.ServerCredentials.createInsecure(), (err, port) => {
@@ -95,5 +131,5 @@ server.bindAsync(PORT, grpc.ServerCredentials.createInsecure(), (err, port) => {
     console.error(err);
     return;
   }
-  console.log(`gRPC server running at http://localhost:${port}`);
+  console.log(`gRPC server running at port ${port}`);
 });

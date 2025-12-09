@@ -1,0 +1,25 @@
+.grid {
+  display: grid;
+  gap: 24px;
+  justify-content: center;
+  padding: 24px;
+  width: 100%;
+}
+
+@media (min-width: 0px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

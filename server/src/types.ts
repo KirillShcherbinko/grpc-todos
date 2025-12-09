@@ -9,7 +9,7 @@ export enum EStatus {
 export type TTodo = {
   id: number;
   title: string;
-  description: string;
+  description?: string;
   status: EStatus;
 };
 
@@ -21,7 +21,7 @@ export type TTodoList = {
   todos: TTodo[];
 };
 
-interface ITodoService extends grpc.UntypedServiceImplementation {
+export interface ITodoService extends grpc.UntypedServiceImplementation {
   CreateTodo: grpc.handleUnaryCall<TTodo, TTodo>;
   GetTodo: grpc.handleUnaryCall<TTodoId, TTodo>;
   ListTodos: grpc.handleUnaryCall<{}, TTodoList>;
