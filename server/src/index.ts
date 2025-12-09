@@ -1,6 +1,6 @@
 import grpc from "@grpc/grpc-js";
 import protoLoader from "@grpc/proto-loader";
-import type { ITodoProto, TTodo, TTodoId, TTodoList } from "./types"; // свои интерфейсы
+import type { ITodoProto, TTodo, TTodoId, TTodoList } from "./types";
 
 const packageDefinition = protoLoader.loadSync("../proto/todo.proto", {
   keepCase: true,
@@ -22,7 +22,7 @@ const todos: TTodo[] = [
 ];
 
 const todoServiceImpl = {
-  CreateTask: (
+  CreateTodo: (
     call: grpc.ServerUnaryCall<TTodo, TTodo>,
     callback: grpc.sendUnaryData<TTodo>
   ) => {
@@ -31,7 +31,7 @@ const todoServiceImpl = {
     callback(null, todo);
   },
 
-  GetTask: (
+  GetTodo: (
     call: grpc.ServerUnaryCall<TTodoId, TTodo>,
     callback: grpc.sendUnaryData<TTodo>
   ) => {
@@ -46,14 +46,14 @@ const todoServiceImpl = {
     }
   },
 
-  ListTasks: (
+  ListTodos: (
     _call: grpc.ServerUnaryCall<null, TTodoList>,
     callback: grpc.sendUnaryData<TTodoList>
   ) => {
     callback(null, { todos });
   },
 
-  UpdateTask: (
+  UpdateTodo: (
     call: grpc.ServerUnaryCall<TTodo, TTodo>,
     callback: grpc.sendUnaryData<TTodo>
   ) => {
@@ -69,7 +69,7 @@ const todoServiceImpl = {
     callback(null, todos[index]);
   },
 
-  DeleteTask: (
+  DeleteTodo: (
     call: grpc.ServerUnaryCall<TTodoId, null>,
     callback: grpc.sendUnaryData<{}>
   ) => {
@@ -89,7 +89,7 @@ const todoServiceImpl = {
 const server = new grpc.Server();
 server.addService(proto.TodoService, todoServiceImpl);
 
-const PORT = "0.0.0.0:50051";
+const PORT = `0.0.0.0:${process.env.PORT}`;
 server.bindAsync(PORT, grpc.ServerCredentials.createInsecure(), (err, port) => {
   if (err) {
     console.error(err);

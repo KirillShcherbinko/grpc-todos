@@ -26,9 +26,9 @@ message TaskList {
 }
 
 service TodoService {
-  rpc CreateTask(Task) returns (Task);
-  rpc GetTask(TaskId) returns (Task);
-  rpc ListTasks(google.protobuf.Empty) returns (TaskList);
-  rpc UpdateTask(Task) returns (Task);
-  rpc DeleteTask(TaskId) returns (google.protobuf.Empty);
+  rpc CreateTodo(Task) returns (Task);
+  rpc GetTodo(TaskId) returns (Task);
+  rpc ListTodos(google.protobuf.Empty) returns (TaskList);
+  rpc UpdateTodo(Task) returns (Task);
+  rpc DeleteTodo(TaskId) returns (google.protobuf.Empty);
 }
