@@ -10,25 +10,25 @@ enum Status {
   DONE = 2;
 }
 
-message Task {
+message Todo {
   int32 id = 1;
   string title = 2;
   optional string description = 3;
   Status status = 4;
 }
 
-message TaskId {
+message TodoId {
   int32 id = 1;
 }
 
-message TaskList {
-  repeated Task todos = 1;
+message TodoList {
+  repeated Todo todos = 1;
 }
 
 service TodoService {
-  rpc CreateTodo(Task) returns (Task);
-  rpc GetTodo(TaskId) returns (Task);
-  rpc ListTodos(google.protobuf.Empty) returns (TaskList);
-  rpc UpdateTodo(Task) returns (Task);
-  rpc DeleteTodo(TaskId) returns (google.protobuf.Empty);
+  rpc CreateTodo(Todo) returns (Todo);
+  rpc GetTodo(TodoId) returns (Todo);
+  rpc ListTodos(google.protobuf.Empty) returns (TodoList);
+  rpc UpdateTodo(Todo) returns (Todo);
+  rpc DeleteTodo(TodoId) returns (google.protobuf.Empty);
 }

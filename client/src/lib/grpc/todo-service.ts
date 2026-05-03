@@ -11,9 +11,9 @@ export const todoService = {
       });
     }),
 
-  GetTodo: (id: TTodoId): Promise<TTodo> =>
+  GetTodo: (id: number): Promise<TTodo> =>
     new Promise((resolve, reject) => {
-      todoClient.GetTodo(id, (err: ServiceError | null, res: TTodo) => {
+      todoClient.GetTodo({ id: Number(id) }, (err: ServiceError | null, res: TTodo) => {
         if (err) reject(err);
         else resolve(res);
       });
@@ -35,9 +35,9 @@ export const todoService = {
       });
     }),
 
-  DeleteTodo: (id: TTodoId): Promise<{}> =>
+  DeleteTodo: (id: number): Promise<{}> =>
     new Promise((resolve, reject) => {
-      todoClient.DeleteTodo(id, (err: ServiceError | null) => {
+      todoClient.DeleteTodo({ id: Number(id) }, (err: ServiceError | null) => {
         if (err) reject(err);
         else resolve({});
       });

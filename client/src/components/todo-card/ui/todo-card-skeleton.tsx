@@ -3,5 +3,5 @@
 import { Skeleton } from "@mantine/core";
 
 export const TodoCardSkeleton = () => {
-  return <Skeleton w={400} h={100} animate radius="md" />;
+  return <Skeleton w="100%" h={150} animate radius="md" />;
 };

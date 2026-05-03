@@ -4,6 +4,7 @@ import { TodoCard, TodoCardSkeleton } from "@/components/todo-card";
 import { useTodos } from "../api/hooks";
 import { Button, Center, Text } from "@mantine/core";
 import styles from "./todo-list.module.css";
+import { DeleteButton } from "@/components/delete-button";
 
 export const TodoList = () => {
   const { data, isLoading, isError, error, refetch } = useTodos();
@@ -36,9 +37,11 @@ export const TodoList = () => {
       {data?.todos.map((todo) => (
         <TodoCard
           key={todo.id}
+          id={todo.id}
           title={todo.title}
           description={todo.description}
           status={todo.status}
+          actionSlots={[<DeleteButton key={todo.id} id={todo.id} />]}
         />
       ))}
     </div>

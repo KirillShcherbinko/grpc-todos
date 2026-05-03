@@ -109,7 +109,9 @@ const todoServiceImpl = {
     call: grpc.ServerUnaryCall<TTodoId, null>,
     callback: grpc.sendUnaryData<{}>
   ) => {
-    const index = todos.findIndex((t) => t.id === call.request.id);
+    const id = Number(call.request.id);
+    const index = todos.findIndex((t) => t.id === id);
+
     if (index === -1) {
       callback({
         code: grpc.status.NOT_FOUND,
@@ -117,6 +119,7 @@ const todoServiceImpl = {
       });
       return;
     }
+
     todos.splice(index, 1);
     callback(null, {});
   },

@@ -5,8 +5,10 @@ import { Badge, Card, Divider, Group, Stack, Text, Title } from "@mantine/core";
 import { ReactNode } from "react";
 import { STATUS_TITLES } from "../config/status-titles";
 import { STATUS_COLORS } from "../config/status-colors";
+import { useRouter } from "next/navigation";
 
 type TTodoCardProps = {
+  id: number;
   title: string;
   status: EStatus;
   description?: string;
@@ -14,13 +16,16 @@ type TTodoCardProps = {
 };
 
 export const TodoCard = ({
+  id,
   title,
   status,
   description,
   actionSlots,
 }: TTodoCardProps) => {
+  const router = useRouter();
+
   return (
-    <Card maw={320} w="100%" padding={16} bg="#F5F5F5" radius="md">
+    <Card w="100%" padding={16} bg="#F5F5F5" radius="md" onClick={() => router.push(`/edit/${id}`)}>
       <Stack w="100%" gap="md">
         <Group justify="between" w="100%">
           <Title order={4}>{title}</Title>
